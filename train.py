@@ -5,7 +5,7 @@ from sklearn.ensemble import RandomForestClassifier
 import joblib
 
 # 1. Load your dataset from the repository folder
-file_path = 'waze.csv'
+file_path = 'featured-waze.csv'
 df = pd.read_csv(file_path)
 
 # 2. Prepare the data (e.g., split into features and target)
