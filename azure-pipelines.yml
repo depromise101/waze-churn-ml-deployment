@@ -1,0 +1,48 @@
+# Trigger a new build
+trigger:
+- main
+
+stages:
+- stage: Build
+  displayName: 'Build and Train Model'
+  jobs:
+  - job: TrainModel
+    pool:
+      vmImage: 'ubuntu-latest'
+    steps:
+    - task: UsePythonVersion@0
+      displayName: 'Install Python'
+      inputs:
+        versionSpec: '3.10'
+    - script: |
+        python -m pip install --upgrade pip
+        pip install -r requirements.txt
+      displayName: 'Install Dependencies'
+    - script: |
+        python train.py
+        python evaluate.py
+      displayName: 'Train and Evaluate Model'
+    - task: PublishBuildArtifacts@1
+      inputs:
+        PathtoPublish: '$(Build.SourcesDirectory)/model.pkl'
+        ArtifactName: 'trained_model'
+      displayName: 'Publish Trained Model'
+    - task: PublishBuildArtifacts@1
+      inputs:
+        PathtoPublish: '$(Build.SourcesDirectory)/evaluation_results.json'
+        ArtifactName: 'EvaluationResults'
+      displayName: 'Publish Evaluation Results'
+
+- stage: Deploy
+  displayName: 'Deploy Model to Production'
+  jobs:
+  - job: Deploy
+    pool:
+      vmImage: 'ubuntu-latest'
+    steps:
+    - download: current
+      artifact: trained_model
+    - script: |
+        echo "Deploying the trained model..."
+        # Add your specific deployment commands here
+      displayName: 'Deploy Model'
