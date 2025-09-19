@@ -8,6 +8,9 @@ import joblib
 file_path = 'featured-waze.csv'
 df = pd.read_csv(file_path)
 
+# Add this line to print the column headers
+print("DataFrame columns:", df.columns)
+
 # 2. Prepare the data (e.g., split into features and target)
 X = df.drop(columns=['label', 'label2', 'device'])
 y = df['label2']
