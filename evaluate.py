@@ -84,7 +84,7 @@ def evaluate_model(model, model_name, X_test, y_test):
 rf_final_metrics = evaluate_model(rf_cv_model, "Random Forest", X_test, y_test)
 xgb_final_metrics = evaluate_model(xgb_cv_model, "XGBoost", X_test, y_test)
 
-# --- 4. Save Final Metrics ---
+# ---- 4. Save Final Metrics ----
 # Save the final evaluation results to a JSON file for easy access.
 
 final_metrics = {
