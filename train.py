@@ -41,7 +41,7 @@ rf_params = {
     'n_estimators': [300],
 }
 rf_cv = GridSearchCV(rf, rf_params, scoring='recall', cv=4)
-rf_cv.fit(X_tr, y_tr) # Corrected to use the training data
+rf_cv.fit(X_train, y_train) # Corrected to use the training data
 
 # =========================
 # XGBoost Classifier
@@ -54,7 +54,7 @@ xgb_params = {
     'n_estimators': [300]
 }
 xgb_cv = GridSearchCV(xgb, xgb_params, scoring='recall', cv=4)
-xgb_cv.fit(X_tr, y_tr) # Corrected to use the training data
+xgb_cv.fit(X_train, y_train) # Corrected to use the training data
 
 # Save feature importance plot
 plot_importance(xgb_cv.best_estimator_)
