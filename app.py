@@ -1,4 +1,5 @@
 import gradio as gr
+import os
 from huggingface_hub import InferenceClient
 
 
@@ -41,11 +42,12 @@ def respond(
 
 
 """
-For information on how to customize the ChatInterface, peruse the gradio docs: https://www.gradio.app/docs/chatinterface
+For information on how to customize the ChatInterface, peruse the gradio docs: 
+https://www.gradio.app/docs/chatinterface
 """
+# CORRECTED: The 'type="messages"' argument has been removed.
 chatbot = gr.ChatInterface(
     respond,
-    type="messages",
     additional_inputs=[
         gr.Textbox(value="You are a friendly Chatbot.", label="System message"),
         gr.Slider(minimum=1, maximum=2048, value=512, step=1, label="Max new tokens"),
@@ -67,4 +69,5 @@ with gr.Blocks() as demo:
 
 
 if __name__ == "__main__":
-    demo.launch()
+    # CORRECTED: Use os.environ.get("PORT") and bind to "0.0.0.0" for Render deployment
+    demo.launch(server_name="0.0.0.0", server_port=int(os.environ.get("PORT", 7860)))
