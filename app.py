@@ -64,10 +64,10 @@ chatbot = gr.ChatInterface(
 
 with gr.Blocks() as demo:
     with gr.Sidebar():
-        gr.LoginButton()
     chatbot.render()
 
 
 if __name__ == "__main__":
     # CORRECTED: Use os.environ.get("PORT") and bind to "0.0.0.0" for Render deployment
     demo.launch(server_name="0.0.0.0", server_port=int(os.environ.get("PORT", 7860)))
+
