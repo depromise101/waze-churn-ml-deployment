@@ -6,3 +6,4 @@ matplotlib
 xgboost
 gradio
 huggingface-hub
+gradio[oauth]
