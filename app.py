@@ -11,11 +11,15 @@ def respond(
     temperature,
     top_p,
 ):
+
+    # Get the token from the environment variable (HF_TOKEN)
+    hf_token = os.environ.get("HF_TOKEN")
     
+    # Initialize client using the environment token
+    client = InferenceClient(token=hf_token, model="openai/gpt-oss-20b")
     """
     For more information on `huggingface_hub` Inference API support, please check the docs: https://huggingface.co/docs/huggingface_hub/v0.22.2/en/guides/inference
     """
-    client = InferenceClient(token=hf_token.token, model="openai/gpt-oss-20b")
 
     messages = [{"role": "system", "content": system_message}]
 
@@ -70,6 +74,7 @@ with gr.Blocks() as demo:
 if __name__ == "__main__":
     # CORRECTED: Use os.environ.get("PORT") and bind to "0.0.0.0" for Render deployment
     demo.launch(server_name="0.0.0.0", server_port=int(os.environ.get("PORT", 7860)))
+
 
 
 
